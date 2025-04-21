@@ -27,11 +27,20 @@ __all__ = [
 
 def bytescale(data, low=0, high=255):
     """Scale the input numpy array to the range [low, high]"""
-    data = np.asarray(data, dtype=np.float32)
-    data_min, data_max = np.min(data), np.max(data)
-    if data_max - data_min == 0:
-        return np.zeros_like(data, dtype=np.uint8) + low
-    scaled = (data - data_min) / (data_max - data_min) * (high - low) + low
+        
+    # convert input to float32 to avoid truncation from int division
+    float_data = np.asarray(data, dtype=np.float32)
+
+    data_min = float_data.min()
+    data_max = float_data.max()
+
+    # if all vals are the same we must avoid div by 0
+    if data_max == data_min:
+        return np.full_like(float_data, fill_value=low, dtype=np.uint8)
+    
+    normalized = (float_data - data_min) / (data_max - data_min)
+    scaled = normalized * (high - low) + low
+
     return scaled.astype(np.uint8)
 
 
