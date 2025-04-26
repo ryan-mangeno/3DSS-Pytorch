@@ -3,3 +3,4 @@ albumentations
 scikit-image
 scikit-learn
 torch
+pathlib

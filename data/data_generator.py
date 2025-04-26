@@ -3,7 +3,7 @@ from skimage.io import imread
 from torch.utils import data
 
 
-class SegmentationDataSet(data.Dataset):
+class SegmentationDataSet1(data.Dataset):
     
     ''' used for picking input-target pairs and preforms transformations on the data '''
 
@@ -30,6 +30,7 @@ class SegmentationDataSet(data.Dataset):
             x, y = self.transform(x, y)
 
         # typecasting
-        x, y = torch.from_numpy(x).type(self.inputs_dtype), torch.from_numpy(y).type(self.targets_dtype)
+        x = torch.from_numpy(x).type(self.inputs_dtype)
+        y = torch.from_numpy(y).type(self.targets_dtype)
 
         return x, y

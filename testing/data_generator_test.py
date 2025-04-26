@@ -1,8 +1,5 @@
 from data import SegmentationDataSet
-from data import ComposeDouble
-from data import FunctionWrapperDouble
-from data import create_dense_target
-from data import normalize_01
+from data import *
 import numpy as np
 from torch.utils.data import DataLoader
 from skimage.transform import resize
@@ -37,7 +34,13 @@ transforms = ComposeDouble([
                           preserve_range=True),
     FunctionWrapperDouble(create_dense_target, input=False, target=True),
     FunctionWrapperDouble(np.moveaxis, input=True, target=False, source=-1, destination=0),
-    FunctionWrapperDouble(normalize_01)
+    FunctionWrapperDouble(normalize_01),
+])
+
+test_transforms = ComposeDouble([
+    FunctionWrapperDouble(create_dense_target, input=False, target=True),
+    FunctionWrapperDouble(np.moveaxis, input=True, target=False, source=-1, destination=0),
+    FunctionWrapperDouble(bytescale, input=True, target=False, low=25, high=300),
 ])
 
 
@@ -51,10 +54,14 @@ print(f'Dense Array: {create_dense_target(tar)}')
 
 x_t, y_t = transforms(x, y)
 
+x_t2, y_t2 = test_transforms(x, y)
+
 print(f'x = shape: {x.shape}; type: {x.dtype}')
 print(f'x = min: {x.min()}; max: {x.max()}')
 print(f'x_t: shape: {x_t.shape}  type: {x_t.dtype}')
 print(f'x_t = min: {x_t.min()}; max: {x_t.max()}')
+print(f'x_t2: shape: {x_t2.shape}  type: {x_t2.dtype}')
+print(f'x_t2 = min: {x_t2.min()}; max: {x_t2.max()}')
 
 print(f'y = shape: {y.shape}; class: {np.unique(y)}')
 print(f'y_t = shape: {y_t.shape}; class: {np.unique(y_t)}')
