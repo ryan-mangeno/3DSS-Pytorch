@@ -1,6 +1,6 @@
 import numpy as np
 import napari
-from transformations import re_normalize
+from data import re_normalize
 
 
 def enable_gui_qt():

@@ -71,3 +71,8 @@ print(f'x = min: {x.min()}; max: {x.max()}')
 
 print(f'y = shape: {y.shape}; type: {y.dtype}')
 print(f'y = min: {y.min()}; max: {y.max()}')
+
+
+from data import DatasetViewer
+dataset_viewer_training = DatasetViewer(dataset=train_dataset) 
+dataset_viewer_training.napari()
