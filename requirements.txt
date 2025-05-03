@@ -4,3 +4,5 @@ scikit-image
 scikit-learn
 torch
 pathlib
+napari
+PyQt5
