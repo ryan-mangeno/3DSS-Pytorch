@@ -30,6 +30,7 @@ targets = get_filenames_of_path(root / 'Target')
 
 # training transformations and augmentations
 transforms = ComposeDouble([
+    AlbuSeg2d(albumentations.HorizontalFlip(p=0.5) # 50% chance to flip data in train set
     FunctionWrapperDouble(create_dense_target, input=False, target=True),
     FunctionWrapperDouble(np.moveaxis, input=True, target=False, source=-1, destination=0),
     FunctionWrapperDouble(normalize_01)
