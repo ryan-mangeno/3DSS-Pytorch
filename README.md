@@ -53,4 +53,3 @@ python train.py
 * Outputs:
 
   * Model checkpoint: `my_checkpoint.pth`
-  * Training/validation loss and DICE plots
