@@ -1,8 +1,7 @@
-numpy
-albumentations
-scikit-image
-scikit-learn
-torch
-pathlib
-napari
-PyQt5
+numpy>=1.23
+torch>=2.1
+torchvision>=0.18
+opencv-python>=4.7
+matplotlib>=3.8
+Pillow>=10.0
+tqdm>=4.65
